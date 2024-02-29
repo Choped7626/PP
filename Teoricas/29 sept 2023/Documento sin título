@@ -1,0 +1,7 @@
+let doble = function x -> 2 * x;;
+
+#para abreviar cuando una sola regla
+
+let doble x = 2 * x;;
+
+

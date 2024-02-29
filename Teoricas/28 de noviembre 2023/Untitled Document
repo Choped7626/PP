@@ -1,0 +1,12 @@
+
+    type 'a tree = 
+        T of 'a * 'a tree list;;
+
+    let rec nnodos (T(_ , lr)) = 
+        List.fold_left (+) 1 (List.map nnodos lr);;
+
+    let rec nnodos = function
+        T (_ , []) -> 1
+    |   T (r , h::t) -> nnodos h + nnodos (T(r,t));;
+
+    

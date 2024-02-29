@@ -1,0 +1,48 @@
+let rec length l = 
+    if l = [] then 0
+    else 1 + length (List.tl l);;
+(*NO ES RECURSIVA FINAL*)
+
+
+let length2 l = 
+    let rec aux (l , i) =   
+        if l = [] then i
+        else aux (List.tl l , i+1)
+    in aux (l , 0);;
+(*ES RECURSIVA FINAL*)
+
+let rec last l = 
+    if List.tl l = [] then List.hd l
+    else last (List.tl l);;
+
+
+3 :: [1 ; 2 ; 4];;
+(*representa una lista de cabeza 3 y cola 1 , 2 , 4*)
+
+let hd = function (h :: t) -> h;;
+(*reducida*)
+let hd (h::_) = h;;
+
+let rec length = function
+    [] -> 0
+  | _::t -> 1 + length t;;
+
+let rec last = function
+    h::[] -> h
+  | _::t -> last t;;
+
+
+let compare_lengths l1 l2 =
+    compare (length l1) (length l2);;
+
+let rec compare_lengths l1 l2 = match (l1 , l2) with 
+    [] , [] -> 0
+  | [] , _  -> -1
+  | _ , []  -> 1
+  | _::t1 , _::t2 -> compare_lengths t1 t2;;
+
+
+
+
+
+

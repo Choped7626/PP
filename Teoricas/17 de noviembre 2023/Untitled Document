@@ -1,0 +1,41 @@
+
+    let print_first_pair l = 
+        match List.find_opt (fun i -> i mod 2 = 0) l with
+        None -> print_endline "No hay pares"
+    |   Some n -> print_endline (string_of_int n);;
+
+       
+    let come (i1 , j1) (i2 , j2) = 
+        i1 = i2 || j1 = j2 || abs(i1-i2) = abs(j1-j2);;
+
+
+    let compatible p l = 
+        not (List.exists (come p) l);;
+
+
+    let queens n = 
+        let rec completa path i j = 
+            if i > n then path
+            else if j > n then raise Not_found
+            else if compatible (i , j) path
+                    then try completa ((i,j)::path) (i+1) 1 with
+                       Not_found -> completa path i (j+1)
+                    else completa path i (j+1)
+        in completa [] 1 1;;
+
+
+    let fibd_opt p l = 
+        try Some (List.find p l) with
+        Not_found -> None;;
+
+    let nth_opt l n = 
+        try Some (List.nth) with
+            Failure _ -> None;;
+
+    type numero = I of int | F of float;;
+
+
+    let rec first_int = function
+        [] -> raise Not_found
+    |   I n :: _ -> n
+    |   _ :: t -> first_int t;;

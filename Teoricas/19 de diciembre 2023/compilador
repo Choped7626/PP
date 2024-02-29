@@ -1,0 +1,377 @@
+choped@Talenel:~$ ledit ocaml
+        OCaml version 4.13.1
+
+#     let counter = object 
+        val muta  ble n = 0
+        met  hod next = n <- n+1 ; n
+        method r  eset = n <- 0
+    end;;  
+val counter : < next : int; reset : unit > = <obj>
+#     let new_counter () = object 
+        val mut  able n = 0
+        metho  d next = n <- n + 1 ; n
+        method r  eset = n <- 0
+    end;;
+      val new_counter : unit -> < next : int; reset : unit > = <fun>
+# 
+  ;;
+# let c1 = new_counter ();;
+val c1 : < next : int; reset : unit > = <obj>
+# let c2 = new_counter ();;
+val c2 : < next : int; reset : unit > = <obj>
+# c1 = c2;;
+- : bool = false
+# let counter = c1;;
+val counter : < next : int; reset : unit > = <obj>
+# c1 = counter ;;
+- : bool = true
+# c1#next;;
+- : int = 1
+# c1#next;;
+- : int = 2
+# c1#next;;
+- : int = 3
+# c1#next;;
+- : int = 4
+# c1#reset;;
+- : unit = ()
+# c1#next;; 
+- : int = 1
+# c2#next;;
+- : int = 1
+# c2#next;;
+- : int = 2
+# let clon = Oo.copy c2;;
+val clon : < next : int; reset : unit > = <obj>
+# clon#next;;
+- : int = 3
+# c2#next;;              
+- : int = 3
+# 
+  clon#next;;
+- : int = 4
+# c2#next;;  
+- : int = 4
+#     class counter = object
+        v  al mutable n = 0
+          method next = n <- n + 1 ; n
+        m  ethod reset = n <- 0
+    end  ;;
+class counter :
+  object val mutable n : int method next : int method reset : unit end
+# counter;;
+- : < next : int; reset : unit > = <obj>
+# 
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+otra terminal 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+choped@Talenel:~$ ledit ocaml
+        OCaml version 4.13.1
+
+#     class counter = object
+        val mut  able n = 0
+          method next = n <- n + 1 ; n
+        m  ethod reset = n <- 0
+    end  ;;
+class counter :
+  object val mutable n : int method next : int method reset : unit end
+# new counter;;
+- : counter = <obj>
+# let c3 = new counter;;
+val c3 : counter = <obj>
+# 3c;;
+Error: Invalid literal 3c
+# c3;;
+- : counter = <obj>
+#     let new_counter () = object 
+        val mut  able n = 0
+        meth  od next = n <- n + 1 ; n
+        method r  eset = n <- 0
+    end;;  
+val new_counter : unit -> < next : int; reset : unit > = <fun>
+# let c2 = new_counter;;
+val c2 : unit -> < next : int; reset : unit > = <fun>
+# c2;;
+- : unit -> < next : int; reset : unit > = <fun>
+# c3;;
+- : counter = <obj>
+# c2 = c3;;
+Error: This expression has type counter
+       but an expression was expected of type
+         unit -> < next : int; reset : unit >
+       Hint: Did you forget to wrap the expression using `fun () ->'?
+#     let counter = object 
+        val mut  able n = 0
+        metho  d next = n <- n+1 ; n
+        method re  set = n <- 0
+    end;;  
+val counter : < next : int; reset : unit > = <obj>
+# let c2 = counter;;
+val c2 : < next : int; reset : unit > = <obj>
+# c2;;
+- : < next : int; reset : unit > = <obj>
+# c3,;
+  c3 ;;
+Error: Syntax error
+# c3 ;;
+- : counter = <obj>
+# c2 = c3;;
+- : bool = false
+# [c2 ; c3];;
+- : counter list = [<obj>; <obj>]
+#     class counter_with_set = object
+          inherit counter
+        meth  od set x = n <- x
+    end;;  
+class counter_with_set :
+  object
+    val mutable n : int
+    method next : int
+    method reset : unit
+    method set : int -> unit
+  end
+# let c4 = new counter_with_set;;
+val c4 : counter_with_set = <obj>
+# c2 = c4;;
+Error: This expression has type counter_with_set
+       but an expression was expected of type < next : int; reset : unit >
+       The second object type has no method set
+# c3 = c4;;
+Error: This expression has type counter_with_set
+       but an expression was expected of type counter
+       The second object type has no method set
+# c4;;
+- : counter_with_set = <obj>
+# (c4 :> counter);;
+- : counter = <obj>
+# let l = [c2 ; c3 ; (c4 :> counter)];;
+val l : counter list = [<obj>; <obj>; <obj>]
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+1
+1
+1
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+2
+2
+2
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+3
+3
+3
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+4
+4
+4
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+5
+5
+5
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#reset)) l;;
+Error: This expression has type counter list
+       but an expression was expected of type
+         (< reset : int; .. > as 'a) list
+       Type counter = < next : int; reset : unit >
+       is not compatible with type < reset : int; .. > as 'a 
+       Types for method reset are incompatible
+# c4#next;;
+- : int = 6
+# List.iter (fun o -> print_endline (string_of_int o#reset)) l;;
+Error: This expression has type counter list
+       but an expression was expected of type
+         (< reset : int; .. > as 'a) list
+       Type counter = < next : int; reset : unit >
+       is not compatible with type < reset : int; .. > as 'a 
+       Types for method reset are incompatible
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;; 
+6
+6
+7
+- : unit = ()
+# c4#set 107;;
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+7
+7
+108
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+8
+8
+109
+- : unit = ()
+# let c4r = List.nth l 2;;
+val c4r : counter = <obj>
+# c4r#next;;
+- : int = 110
+# c4r#reset;;
+- : unit = ()
+# c4r#next;; 
+- : int = 1
+# c4r#set;; 
+Error: This expression has type counter
+       It has no method set
+#     class counter2 = object
+        inherit   counter
+        met  hod next = n <- n+2 ; n
+    end;;
+  class counter2 :
+  object val mutable n : int method next : int method reset : unit end
+# let c5 = new counter2;;
+val c5 : counter2 = <obj>
+# let l = [c2 ; c5];;
+val l : counter2 list = [<obj>; <obj>]
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+9
+2
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+10
+4
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+11
+6
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+12
+8
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+13
+10
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+14
+12
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+15
+14
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+16
+16
+- : unit = ()
+# List.iter (fun o -> print_endline (string_of_int o#next)) l;;
+17
+18
+- : unit = ()
+#     class counter3 = object
+          inherit counter as super (*es un alias*)
+          method super#next ; super#next
+      end;;
+Error: Syntax error
+# #     class counter3 = object
+          inherit counter as super (*es un alias*)
+          method super#next; super#next
+      end;;
+Error: Syntax error
+# 
+      class counter3 = object
+          inherit counter as super (*es un alias*)
+          method next = super#next; super#next
+      end;;
+Warning 10 [non-unit-statement]: this expression should have type unit.
+class counter3 :
+  object val mutable n : int method next : int method reset : unit end
+# let c6 = new counter3;;
+val c6 : counter3 = <obj>
+# c6.next;;
+Error: Unbound record field next
+# c6#next;;
+- : int = 2
+# c6#next;;
+- : int = 4
+# c6#next;;
+- : int = 6
+# c6#next;;
+- : int = 8
+# c6#next;;
+- : int = 10
+# c6.next;;
+Error: Unbound record field next
+# c6#next;; 
+- : int = 12
+# c6#next;;�
+- : int = 14
+# c6#next;;�
+- : int = 16
+# c4 :> counter;;
+Error: Syntax error
+# (c4 :> counter);;
+- : counter = <obj>
+# (c4 :> int);;
+Error: Type
+         counter_with_set = < next : int; reset : unit; set : int -> unit >
+       is not a subtype of int 
+# (c4 :> unit);;
+Error: Type
+         counter_with_set = < next : int; reset : unit; set : int -> unit >
+       is not a subtype of unit 
+#     exception EmptyStack;;
+
+    class ['a] stack =exception EmptyStack
+# 
+            object 
+              val mutable l = ([] : 'a list)
+            metho  d push x = 
+            l <  - x :: l
+              method pop = match l with
+            [] -  > raise EmptyStack
+        |   h:  :t -> l <- t ; h
+            metho  d peek = match l with
+            [] ->   raise EmptyStack
+        |   h::  _ -> h
+        end;;
+  
+
+
+
+class ['a] stack :
+  object
+    val mutable l : 'a list
+    method peek : 'a
+    method pop : 'a
+    method push : 'a -> unit
+  end
+#         
+  let pila = new stack;;
+val pila : '_weak1 stack = <obj>
+# pila#pop;;
+Exception: EmptyStack.
+# pila#peek;;
+Exception: EmptyStack.
+# pila#push 4;;
+- : unit = ()
+# pila;;
+- : int stack = <obj>
+# pila#�peek;;
+Alert deprecated: ISO-Latin1 characters in identifiers
+Error: Syntax error
+# pila#peek;;
+- : int = 4
+# pila#pop;;
+- : int = 4
+# pila;;
+- : int stack = <obj>
+# pila#peek;;
+Exception: EmptyStack.
+# let pila = ((new stack) : int stack);;
+val pila : int stack = <obj>
+# 
+
+
+
+
+
+

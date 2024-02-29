@@ -1,0 +1,59 @@
+mario@Choped7626:~$ ocaml
+        OCaml version 4.13.1
+
+# 
+    type 'a st_bintree = 
+        Node of 'a * 'a st_bintree * 'a st_bintree
+    |   Leaf of 'a;;      
+type 'a st_bintree = Node of 'a * 'a st_bintree * 'a st_bintree | Leaf of 'a
+# let t_e = Node ('E' , Leaf 'F' , Leaf 'G');;
+val t_e : char st_bintree = Node ('E', Leaf 'F', Leaf 'G')
+# let t_b = Node ('B' , Leaf 'D' , t_e);;
+val t_b : char st_bintree =
+  Node ('B', Leaf 'D', Node ('E', Leaf 'F', Leaf 'G'))
+# let t = Node ( 'A' , t_b , Leaf 'C');;
+val t : char st_bintree =
+  Node ('A', Node ('B', Leaf 'D', Node ('E', Leaf 'F', Leaf 'G')), Leaf 'C')
+# 
+    type 'a tree = 
+        T of 'a * 'a tree list;;    
+type 'a tree = T of 'a * 'a tree list
+# let s x  = T (x , []);;
+val s : 'a -> 'a tree = <fun>
+# s 2;;
+- : int tree = T (2, [])
+# let t_6 = T(6 , [s 5 ; s 11]);;   
+val t_6 : int tree = T (6, [T (5, []); T (11, [])])
+# let t_7 = T(7 , [ s 2 ; s 10 ; t_6]);;
+val t_7 : int tree =
+  T (7, [T (2, []); T (10, []); T (6, [T (5, []); T (11, [])])])
+# let t_9 = T ( 9 , [s 4]);;
+val t_9 : int tree = T (9, [T (4, [])])
+# let t_5 = T ( 5 , [s 9]);;
+val t_5 : int tree = T (5, [T (9, [])])
+# let t_5 = T ( 5 , [t_9]);;
+val t_5 : int tree = T (5, [T (9, [T (4, [])])])
+# let gt = T (2 , [t_7 ; t_5];;
+Error: Syntax error: ')' expected
+Line 1, characters 11-12:   This '(' might be unmatched
+# let gt = T (2 , [t_7 ; t_5]);; 
+val gt : int tree =
+  T (2,
+   [T (7, [T (2, []); T (10, []); T (6, [T (5, []); T (11, [])])]);
+    T (5, [T (9, [T (4, [])])])])
+#     let rec nnodos (T(_ , lr)) = 
+        List.fold_left (+) 1 (List.map nnodos lr);;  
+val nnodos : 'a tree -> int = <fun>
+# nnodos gt;;
+- : int = 10
+#     let rec nnodos = function
+        T (_ , []) -> 1
+    |   T (r , h::t) -> nnodos h + nnodos (T(r,t));;    
+val nnodos : 'a tree -> int = <fun>
+# nnodos gt;;
+- : int = 10
+# ^CInterrupted.
+# ^Z
+[1]+  Stopped                 ocaml
+mario@Choped7626:~$ 
+

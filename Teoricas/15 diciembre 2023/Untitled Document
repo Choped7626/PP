@@ -1,0 +1,34 @@
+
+(*registros*)
+    type counter = 
+        {next : unit -> int;
+        reset : unit -> unit};;
+
+    let counter = let n = ref 0 in
+        {next = (fun () -> n := !n + 1 ; !n);
+         reset = (fun () -> n := 0)};;
+
+(*
+para barir un modulo con un alias 
+module L = List;;
+*)
+    let c = counter;;
+
+    let new_counter () = let n = ref 0 in
+        {next = (fun () -> n := !n + 1 ; !n);
+         reset = (fun () -> n := 0)};;
+
+(*objetos*)
+    (*esto é un objeto en si*)
+    let counter = object 
+        val mutable n = 0
+        method next = n <- n + 1 ; n
+        method reset = n <- 0
+    end;;
+
+    let new_counter ini = object 
+        val mutable n = ini
+        method next = n <- n + 1 ; n
+        method reset = n <- 0
+    end;;
+

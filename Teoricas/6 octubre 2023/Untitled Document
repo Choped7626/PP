@@ -1,0 +1,11 @@
+let s = function x -> function y -> x + y;;
+
+let s x = function y -> x + y;;
+
+let s x y = x + y;;
+
+let conj b1 b2 = (&&) b1 b2;;
+
+let f (x , y) = 2 * x + y ;;
+
+let f = function (x , y) -> 2 * x + y;;

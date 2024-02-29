@@ -1,0 +1,32 @@
+
+    let last (h::t) = 
+        List.fold_left (fun _ x -> x) h t;;
+
+    (* sorted: 'a list -> bool *)
+    
+    let rec sorted = function
+        [] | _::[] -> true
+    |   h1::h2::t -> h1 <= h2 && sorted (h2::t);;
+
+    (* g_sorted: ('a -> 'a -> bool) -> 'a list -> bool *)
+    
+    let rec g_sorted ord = function
+        [] | _::[] -> true
+    |   h1::h2::t -> ord h1 h2 && g_sorted ord (h2::t);;
+
+
+    (* insert: 'a -> 'a list -> 'a list *)
+(facela recursiva terminal e con ordenacion como argumento)
+    let rec insert x = function
+        [] -> [x]
+    |   h::t -> if x <= h  then x::h::t
+                else h::insert x t;;
+
+    (* isort : 'a list -> 'a list *)
+(facela recursiva terminal e con ordenacion como argumento)
+    let rec isort = function
+        [] -> []
+    |   h::t -> insert h (isort t);;
+
+
+

@@ -1,0 +1,21 @@
+
+        let rec append l1 l2 = match l1 with
+                [] -> l2
+            |   h::t -> h :: append t l2;;
+    (*no recursiva terminal*)
+
+    let rec rev_append l1 l2 = match l1 with
+            [] -> l2 
+        |   h::t -> rev_append t (h::l2);;
+    
+    let rev l = rev_append l [];;
+
+    let append' l1 l2 = rev_append (rev l1) l2;;
+    (*recursiva terminal*)
+    
+    let hd = function
+        h::_ -> h
+    |   [] -> raise (Failure "mira que eres torpe");;
+
+
+

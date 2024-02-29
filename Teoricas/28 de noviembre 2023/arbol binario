@@ -1,0 +1,30 @@
+
+    type 'a st_bintree = 
+        Node of 'a * 'a st_bintree * 'a st_bintree
+    |   Leaf of 'a;;
+    
+    
+    
+    (*Raiz, solo *)
+let s x = T (x, []);;
+let t_6 = T(6,[s 5; s 11]);;  
+
+let t_7 = T(7, [s 2; s 10; t_6]);;
+
+let t_9 = T(9, [s 4]);;
+
+let t_5 = T(5, [t_9]);;
+
+let g_t = T(2, [t_7; t_5]);;
+
+let rec nnodos (T(_, lr)) = 
+    List.fold_left (+) 1 (List.map nnodos lr);;
+    
+let rec nnodos (T(_, lr)) = 
+    List.fold_left (fun n t -> n + nnodos t) 1 lr;;  (*Esta recorre la lista solo una vez*)    
+    
+
+let rec nnodos = function
+    T(_, []) -> 1
+   |T(r, h::t) -> nnodos h + nnodos(T(r, t));;
+   

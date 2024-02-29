@@ -1,0 +1,20 @@
+
+    let rec divide = function   (*hacer version terminal*)
+        h1::h2::t -> let t1 , t2 = divide t 
+                        in h1::t1 , h2::t2
+    |   [] -> [] , [] 
+    |   [h] -> [h] , [];;
+    
+    let rec merge = function
+        (h1::t1 , h2::t2) -> if h1 <= h2 then h1 :: merge (t1 , h2::t2)
+                            else h2 :: merge (h1::t1 , t2)
+        | [] , l | l , [] -> l;;    
+                                    (*el l puede ser vacia eh , pero da igual porq       
+                                        devolveriamos vacia igual*)
+                                            (*haccer version terminal*)
+
+    let rec msort = function
+            [] -> []
+        |   [l] -> [l]
+        |   l -> let l1 , l2 = divide l
+                 in merge (msort l1 , msort l2);;

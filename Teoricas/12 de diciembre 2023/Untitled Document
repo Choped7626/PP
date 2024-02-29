@@ -1,0 +1,37 @@
+
+    type person = {name : string ; age : int};;
+
+    let older p =
+        {name = p.name ; age = succ p.age};; 
+    (*hacen lo mismo*)
+    let olderSINpunto {name = n ; age = a} =
+        {name = n ; age = succ a};;
+    (*p with age = significa un registro con todo igual a p salvo el campo a la derecha de with q cambiará*)
+    let olderSalvo p =
+        {p with age = succ p.age};;
+
+    type person = {name : string ; mutable age : int};;
+
+    let aged p = 
+        p.age <- succ p.age;;
+
+    type 'a var = {mutable valor : 'a};;
+
+    let initvar x = {valor = x};;
+
+    let (!!) v = v.valor;;
+
+    let (<<) v x = v.valor <- x;;
+
+module Contador () : sig
+    val next : unit -> int
+    val reset : unit -> unit
+end = struct
+    let n = ref 0
+    let next() = 
+        n := !n +1;
+        !n
+    let reset() =
+        n := 0
+end;;
+

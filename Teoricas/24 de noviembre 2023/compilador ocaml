@@ -1,0 +1,191 @@
+mario@Choped7626:~$ ocaml
+        OCaml version 4.13.1
+
+# 
+    type 'a bintree =
+            Empty
+        |   Node of 'a * 'a bintree * 'a  bintree;;      
+type 'a bintree = Empty | Node of 'a * 'a bintree * 'a bintree
+# Empty;;
+- : 'a bintree = Empty
+# Node (1 , Empty , Empty);;
+- : int bintree = Node (1, Empty, Empty)
+# let tree = Node (1 , Empty , Empty);;
+val tree : int bintree = Node (1, Empty, Empty)
+# Node (5 , tree , tree);;
+- : int bintree = Node (5, Node (1, Empty, Empty), Node (1, Empty, Empty))
+# let t12 = Node (2 , Empty , Empty);;
+val t12 : int bintree = Node (2, Empty, Empty)
+# let h x = Node (x , Empty , Empty);;
+val h : 'a -> 'a bintree = <fun>
+# let t12 = h 2;;
+val t12 : int bintree = Node (2, Empty, Empty)
+# let t11 = h 2;;
+val t11 : int bintree = Node (2, Empty, Empty)
+# let t12 = Node(6 , h 5 , h 11);;
+val t12 : int bintree =
+  Node (6, Node (5, Empty, Empty), Node (11, Empty, Empty))
+# let t22 = Node(9 , h 4 , Empty);;
+val t22 : int bintree = Node (9, Node (4, Empty, Empty), Empty)
+# let t1 =  Node ( 7 , t11 , t12);;
+val t1 : int bintree =
+  Node (7, Node (2, Empty, Empty),
+   Node (6, Node (5, Empty, Empty), Node (11, Empty, Empty)))
+# let t2 = Node (5 , Empty , t22);;
+val t2 : int bintree =
+  Node (5, Empty, Node (9, Node (4, Empty, Empty), Empty))
+# let t = Node (2 , t1 , t2);;
+val t : int bintree =
+  Node (2,
+   Node (7, Node (2, Empty, Empty),
+    Node (6, Node (5, Empty, Empty), Node (11, Empty, Empty))),
+   Node (5, Empty, Node (9, Node (4, Empty, Empty), Empty)))
+# 
+    type 'a bintree =
+            Empty
+        |   Node of 'a * 'a bintree * 'a  bintree;;
+
+    let rec nnodos = function
+        Empty -> 0
+    |   Node(_ , i , d) -> nnodos i + nnodos d + 1;;
+
+    let rec altura = function
+        Empty -> 0
+    |   Node (_ , i , d) -> 1 + max (altura i) (altura d);;
+
+    let rec tmax = function
+        Empty -> raise (Invalid_argument "tmax")
+    |   Node (r , Empty , Empty) -> r
+    |   Node (r , Empty , rama)
+    |   Node (r , rama , Empty) -> max r (tmax rama) 
+    |   Node (r , i , d) -> max r (max (tmax i) (tmax d));;
+          type 'a bintree = Empty | Node of 'a * 'a bintree * 'a bintree
+#       val nnodos : 'a bintree -> int = <fun>
+#       val altura : 'a bintree -> int = <fun>
+#             val tmax : 'a bintree -> 'a = <fun>
+#     
+  tmax t;;
+Error: This expression has type int bintree/2
+       but an expression was expected of type 'a bintree/1
+       Hint: The type bintree has been defined multiple times in this
+         toplevel session. Some toplevel values still refer to old versions
+         of this type. Did you try to redefine them?
+# t
+  ;;
+- : int bintree/2 =
+Node (2,
+ Node (7, Node (2, Empty, Empty),
+  Node (6, Node (5, Empty, Empty), Node (11, Empty, Empty))),
+ Node (5, Empty, Node (9, Node (4, Empty, Empty), Empty)))
+# 
+    type 'a bintree =
+            Empty
+        |   Node of 'a * 'a bintree * 'a  bintree;;
+
+    let rec nnodos = function
+        Empty -> 0
+    |   Node(_ , i , d) -> nnodos i + nnodos d + 1;;
+
+    let rec altura = function
+        Empty -> 0
+    |   Node (_ , i , d) -> 1 + max (altura i) (altura d);;
+
+    let rec tmax = function
+        Empty -> raise (Invalid_argument "tmax")
+    |   Node (r , Empty , Empty) -> r
+    |   Node (r , Empty , rama)
+    |   Node (r , rama , Empty) -> max r (tmax rama) 
+    |   Node (r , i , d) -> max r (max (tmax i) (tmax d));;
+          type 'a bintree = Empty | Node of 'a * 'a bintree * 'a bintree
+#       val nnodos : 'a bintree -> int = <fun>
+#       val altura : 'a bintree -> int = <fun>
+#             val tmax : 'a bintree -> 'a = <fun>
+# 
+  tmax;;
+- : 'a bintree -> 'a = <fun>
+# t;; 
+- : int bintree/2 =
+Node (2,
+ Node (7, Node (2, Empty, Empty),
+  Node (6, Node (5, Empty, Empty), Node (11, Empty, Empty))),
+ Node (5, Empty, Node (9, Node (4, Empty, Empty), Empty)))
+# tmax t;;
+Error: This expression has type int bintree/2
+       but an expression was expected of type 'a bintree/1
+       Hint: The type bintree has been defined multiple times in this
+         toplevel session. Some toplevel values still refer to old versions
+         of this type. Did yo
+
+
+mario@Choped7626:~$ jobs
+mario@Choped7626:~$ ocaml
+        OCaml version 4.13.1
+
+# 
+    type 'a bintree =
+            Empty
+        |   Node of 'a * 'a bintree * 'a  bintree;;
+
+    let rec nnodos = function
+        Empty -> 0
+    |   Node(_ , i , d) -> nnodos i + nnodos d + 1;;
+
+    let rec altura = function
+        Empty -> 0
+    |   Node (_ , i , d) -> 1 + max (altura i) (altura d);;
+
+    let rec tmax = function
+        Empty -> raise (Invalid_argument "tmax")
+    |   Node (r , Empty , Empty) -> r
+    |   Node (r , Empty , rama)
+    |   Node (r , rama , Empty) -> max r (tmax rama) 
+    |   Node (r , i , d) -> max r (max (tmax i) (tmax d));;
+
+      type 'a bintree = Empty | Node of 'a * 'a bintree * 'a bintree
+#       val nnodos : 'a bintree -> int = <fun>
+#       val altura : 'a bintree -> int = <fun>
+#             val tmax : 'a bintree -> 'a = <fun>
+#   
+  let t12 = Node (2 , Empty , Empty);;
+val t12 : int bintree = Node (2, Empty, Empty)
+# let h x = Node (x , Empty , Empty);;
+val h : 'a -> 'a bintree = <fun>
+# let t12 = h 2;;
+val t12 : int bintree = Node (2, Empty, Empty)
+# let t11 = h 2;;
+val t11 : int bintree = Node (2, Empty, Empty)
+# let t12 = Node(6 , h 5 , h 11);;
+val t12 : int bintree =
+  Node (6, Node (5, Empty, Empty), Node (11, Empty, Empty))
+# let t22 = Node(9 , h 4 , Empty);;
+val t22 : int bintree = Node (9, Node (4, Empty, Empty), Empty)
+# let t1 =  Node ( 7 , t11 , t12);;
+val t1 : int bintree =
+  Node (7, Node (2, Empty, Empty),
+   Node (6, Node (5, Empty, Empty), Node (11, Empty, Empty)))
+# let t2 = Node (5 , Empty , t22);;
+val t2 : int bintree =
+  Node (5, Empty, Node (9, Node (4, Empty, Empty), Empty))
+# let t = Node (2 , t1 , t2);;
+val t : int bintree =
+  Node (2,
+   Node (7, Node (2, Empty, Empty),
+    Node (6, Node (5, Empty, Empty), Node (11, Empty, Empty))),
+   Node (5, Empty, Node (9, Node (4, Empty, Empty), Empty)))
+# tmax t;;
+- : int = 11
+# let rec preorden = function
+        Empty -> []
+    |   Node (r , i , d) -> r :: preorden i @ preorden d;;    
+val preorden : 'a bintree -> 'a list = <fun>
+# preorden t;;
+- : int list = [2; 7; 2; 6; 5; 11; 5; 9; 4]
+# let rec hojas = function
+        Empty -> []
+    |   Node (r , Empty , Empty) -> [r]
+    |   Node (_ , i , d) -> hojas i @ hojas d;;      
+val hojas : 'a bintree -> 'a list = <fun>
+# hojas t;;
+- : int list = [2; 5; 11; 4]
+# 
+

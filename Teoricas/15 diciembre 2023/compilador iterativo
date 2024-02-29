@@ -1,0 +1,150 @@
+choped@Talenel:~$ ledit ocaml
+        OCaml version 4.13.1
+
+#     type counter = 
+        {next :   unit -> int;
+        reset :   unit -> unit};;
+
+    let counter = let n = ref 0 in
+        {next = (fun () -> ntype counter = { next : unit -> int; reset : unit -> unit; }
+(fun () -> n := !n + 1 ; !n);
+         reset = (f(fun () -> n := 0)}
+  
+  ;;
+val counter : counter = {next = <fun>; reset = <fun>}
+#     let c = counter;;
+val c : counter = {next = <fun>; reset = <fun>}
+# c.next;;
+- : unit -> int = <fun>
+# c.next ();;
+- : int = 1
+# c.next ();;
+- : int = 2
+# c.next ();;
+- : int = 3
+# c.next ();;
+- : int = 4
+# c.next ();;
+- : int = 5
+# c.next ();;
+- : int = 6
+# c.next ();;
+- : int = 7
+# c.next ();;
+- : int = 8
+# c.next ();;
+- : int = 9
+# c.next;;             
+- : unit -> int = <fun>
+# c.next ();;
+- : int = 10
+# c.next ();;
+- : int = 11
+# c.reset ();;
+- : unit = ()
+# c.next;;
+- : unit -> int = <fun>
+# c.next ();; 
+- : int = 1
+#     let new_counter () = let n = ref 0 in
+        {next   = (fun () -> n := !n + 1 ; !n);
+         reset   = (fun () -> n := 0)}
+  ;;
+val new_counter : unit -> counter = <fun>
+# new_counter ();;
+- : counter = {next = <fun>; reset = <fun>}
+# let meat = new_counter ();;
+val meat : counter = {next = <fun>; reset = <fun>}
+# let fish = new_counter;;
+val fish : unit -> counter = <fun>
+#meat.next ();;         ;
+- : int = 1
+# meat.next ();;�
+- : int = 2
+# meat.next ();;�
+- : int = 3
+# meat.next ();;�
+- : int = 4
+# meat.next ();;�
+- : int = 5
+# meat.next ();;�
+- : int = 6
+# meat.next ();;�
+- : int = 7
+# meat.next ();;�
+- : int = 8
+# meat.next ();; 
+- : int = 9
+# meat.next ();;
+- : int = 10
+# fish.next ();; 
+Error: This expression has type unit -> counter
+       but an expression was expected of type counter
+       Hint: Did you forget to provide `()' as argument?
+# let fish = new_counter () ;;
+val fish : counter = {next = <fun>; reset = <fun>}
+# fish.next ();;              
+- : int = 1
+# fish.next ();;
+- : int = 2
+# fish.next ();;
+- : int = 3
+# fish.next ();;
+- : int = 4
+# fish.next ();;
+- : int = 5
+# fish.next ();;
+- : int = 6
+# 
+  fish.next ();;
+- : int = 7
+# fish.next ();;              
+- : int = 8
+# let counter = object 
+        v  al mutable n = 0
+          method next = n <- n + 1 ; n
+        met  hod reset = n <- 0
+    end;;  
+val counter : < next : int; reset : unit > = <obj>
+# counter#next;;
+- : int = 1
+# counter#next;;
+- : int = 2
+# counter#next;;
+- : int = 3
+# counter#next;;
+- : int = 4
+# counter#next;;
+- : int = 5
+# counter#reset;; 
+- : unit = ()
+# 
+  counter#next;;  
+- : int = 1
+# counter#reset;;�
+- : unit = ()
+# counter#next;;  
+- : int = 1
+# counter#next + counter#next;;
+- : int = 5
+# counter#next + 2 * counter#next;;
+- : int = 13
+# counter#next                     
+  ;;
+- : int = 6
+#     let new_counter ini = object 
+          val mutable n = ini
+          method next = n <- n + 1 ; n
+        met  hod reset = n <- 0
+    end;;  
+val new_counter : int -> < next : int; reset : unit > = <fun>
+# let c1 = new_counter 3;;
+val c1 : < next : int; reset : unit > = <obj>
+# let c1 = new_counter 2;;
+val c1 : < next : int; reset : unit > = <obj>
+# c1#next;;
+- : int = 3
+# c2#next;;
+Error: Unbound value c2
+# 
+

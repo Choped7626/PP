@@ -1,0 +1,100 @@
+
+    let doble c = 2 * c#next;;
+    
+    let counter = object 
+        val mutable n = 0
+        method next = n <- n+1 ; n
+        method reset = n <- 0
+    end;;
+
+    counter#next , counter#next;;
+    counter#next + 2 * counter#next;;
+
+    double counter;;
+
+    let new_counter () = object 
+        val mutable n = 0
+        method next = n <- n + 1 ; n
+        method reset = n <- 0
+    end;;
+    
+   (*clases y herencia , para herencia son necesarias las clases , las clases permiten
+ crear objetos como si fueran un molde para generar bjetos*)
+
+    class counter = object
+        val mutable n = 0
+        method next = n <- n + 1 ; n
+        method reset = n <- 0
+    end;;
+
+    (*es la receta del objeto  , aqui no se evalua nada por ahora*)
+    (*al definir una clase el compilador añade por su cuenta en este caso esto*)
+    type counter = < next : int ; reset : unit >
+
+    class counter_with_set = object
+        inherit counter
+        method set x = n <- x
+    end;;
+    
+    (*herencia , toda dura , se pueden usar entonces los counter with set como 
+counters , no al reves*)
+    (*puede heredar y se non añade nada , pode redifinir , sigue sendo mismo mtipo*)
+    (*cuando hay un objeto de subtipo se puede coaccionar para 
+q funcione como el del supertipo *)
+    (c4 :> counter)
+
+
+    class counter2 = object
+        inherit counter
+        method next = n <- n+2 ; n
+    end;;
+
+    class counter3 = object
+        inherit counter as super (*es un alias*)
+        method next = ignore super#next; super#next
+    end;;
+
+    class counter_with_init ini = object (self)
+        inherit counter_with_set
+        method reset = self#set ini (*n <- ini*)
+        initializer self#reset      (*n <- ini*)
+    end;;
+
+    class counter_with_step = object (self)
+        inherit counter_with_init 0 as super
+        val mutable step = 1
+        method next = n <- n + step ; n
+        method set_step s = step <- s
+        method reset = super#reset ; self#set_step 1
+    end;;           (*si pones self#reset recursividad infinita*)
+
+    class counter_with_max max = object (self)
+        inherit counter_with_step as super
+        method next =   
+                let next = super#next in
+                if next > max
+                then (self#reset ; self#next)
+                else next   
+        end;;
+
+    exception EmptyStack;;
+
+    class ['a] stack =
+        object 
+            val mutable l = ([] : 'a list)
+            method push x = 
+            l <- x :: l
+            method pop = match l with
+            [] -> raise EmptyStack
+        |   h::t -> l <- t ; h
+            method peek = match l with
+            [] -> raise EmptyStack
+        |   h::_ -> h
+        end;;
+
+
+
+(*privata no se puede ver desde fuera
+virtual no permite la instanciacion , tiene metodos no definidos o implementados*)
+
+

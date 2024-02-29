@@ -1,0 +1,23 @@
+
+    let print_first_pair l = 
+        match List.find_opt (fun i -> i mod 2 = 0) l with
+        None -> print_endline "No hay pares"
+    |   Some n -> print_endline (string_of_int n);;
+
+       
+    let come (i1 , j1) (i2 , j2) = 
+        i1 = i2 || j1 = j2 || abs(i1-i2) = abs(j1-j2);;
+
+    let compatible p l = 
+        not (List.exists (come p) l);;
+
+    let queens n = 
+        let rec completa path i j = 
+            if i > n then Some path
+            else if j > n then None
+            else if compatible (i , j) path
+                    then match completa ((i,j)::path) (i+1) 1 with
+                        Some sol -> Some sol
+                    |   None -> completa path i (j+1)
+                    else completa path i (j+1)
+        in completa [] 1 1;;

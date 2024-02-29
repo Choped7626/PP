@@ -1,0 +1,9 @@
+function x -> 2 * x ;;
+
+let doble = function x -> 2 * x ;;
+
+let alltrue = function 
+    true -> true
+    | false -> true;;
+
+let alltrue = function x -> true;;

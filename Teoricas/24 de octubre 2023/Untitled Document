@@ -1,0 +1,21 @@
+let fib' n = 
+    let rec aux_fib (i , f , a) = 
+        if i = n then f
+        else aux_fib (i + 1 , f + a , f)
+    in aux_fib (0 , 0, 1);;
+    
+let crono f x = 
+    let t = Sys.time() in
+    let _ = f x in  
+    Sys.time () -. t;;
+
+
+los tipos
+t.list
+list
+son una secuencia finita;
+las listas en camel son homogeneas (todos los elementos del mismo tipo)
+[3245 ; 24234];;
+
+
+length : a' list -> int

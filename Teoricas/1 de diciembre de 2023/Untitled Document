@@ -1,0 +1,37 @@
+
+let n = ref 0;;
+  
+(*hbaíw 
+    let rec par n = 
+        n = 0 || impadr (n-1)
+    and impar n = 
+        n <> 0 && par (n-1);;
+
+    let n = 0;;
+
+    let next = function () ->  
+        let _ d = n := !n + 1 in
+        !n;;
+  *) 
+
+    ("nexton normal(mas usado)")
+    let  next () = 
+        let n = ref 0 in
+        n := 1 + !n;
+    !n;;
+
+    let next = function () -> 
+        let n = ref 0 in
+        n := !n + 1;
+        !n;;
+
+    let next = 
+        let n = ref 0 in
+        function () ->
+        n := !n + 1;
+        !n;;
+
+    let next , setto = 
+        let n = ref 0 in
+            (function () -> n := !n +1 ; !n),
+            (function x -> n := x);;

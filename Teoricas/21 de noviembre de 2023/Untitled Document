@@ -1,0 +1,73 @@
+
+    type numero =
+        I of int    |
+        F of float;;
+
+    let rec first_int = function
+        [] -> raise Not_found
+    |   I n :: _ -> n
+    |   _ :: t -> first_int t;;
+    
+    type otroInt = Otro of int;;
+    
+    type dobleInt = L of int | R of int ;;
+        
+    type intplus = Int of int | Na;;
+    
+    let div i1 i2 = match (i1 , i2) with
+        (_ , Int 0) -> Na
+    |   (Int m , Int n) -> Int (m/n)
+    |   _ -> Na;;
+    
+    let (//) = div;;
+
+    let div i1 i2 = match (i1 , i2) with
+       (Int m , Int n) -> (try Int (m/n) with 
+                                Division_by_zero -> Na)
+    |   _ -> Na;;
+    
+    (*deinir tipos de datos sin tipos de datos seria como usar una clase eneumerada*)   
+    
+    type boolean = True | False;;
+    
+    let (!) = function
+        True -> False 
+    |   False -> True;;
+
+    type palo = Corazon | Pica | Diamante | Trebol;;
+
+    let es_rojo = function
+        Corazon | Diamante -> True
+    |   _ -> False;;
+    
+    let es_negro p = ! (es_rojo p );;
+
+    type nat = One | Succ of nat;;
+
+    let rec nat_of_int = function
+        1 -> One
+    |   n -> Succ (nat_of_int (n-1));;
+    
+    type entero = Pos of nat | Neg of nat | Zero;;
+
+    let absoluto = function
+        Neg n -> Pos n
+    |   e -> e;;
+
+    let opuesto = function
+        Neg n -> Pos n
+    |   Pos n -> Neg n
+    |   Zero -> Zero;;
+
+    type 'a option = Some of 'a | None;;
+
+    type 'a otro = Otro of 'a;;
+
+    type 'a lista = Vacia | Cons of 'a * 'a lista;;
+
+    type 'a bintree = 
+
+
+
+
+
